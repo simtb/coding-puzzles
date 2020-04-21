@@ -12,6 +12,7 @@ Submissions making more than 1000 calls to BinaryMatrix.get will be judged Wrong
 For custom testing purposes you're given the binary matrix mat as input in the following four examples. You will not have access the binary matrix directly.
 """
 
+#solution 1 uses binary search (mlog(n)) where m is the number of rows and n is the number of columns
 # """
 # This is BinaryMatrix's API interface.
 # You should not implement it, or speculate about its implementation
@@ -57,3 +58,43 @@ class Solution:
             return -1
         else:
             return first_column
+
+
+
+
+
+#solution 2 more efficient uses pointers
+
+class Solution:
+    def validPosition(self, binaryMatrix: 'BinaryMatrix', y: int, x: int) -> bool:
+        if 0 <= y < binaryMatrix.dimensions()[0] and 0 <= x < binaryMatrix.dimensions()[1]:
+            return True
+        return False
+    
+    
+    def leftMostColumnWithOne(self, binaryMatrix: 'BinaryMatrix') -> int:
+        if not binaryMatrix.dimensions()[0] or  not binaryMatrix.dimensions()[1]:
+            return -1
+        
+        leftmost: int = 100
+        y: int = 0
+        x: int = binaryMatrix.dimensions()[1] - 1
+        
+        while True:
+            if leftmost == 0:
+                return leftmost
+            if not self.validPosition(binaryMatrix, y, x):
+                break
+            
+            value: int = binaryMatrix.get(y, x)
+            print(value)
+            if value == 1:
+                leftmost: int = min(leftmost, x)
+                x: int = x - 1
+            else:
+                y: int = y + 1
+        
+        if leftmost == 100:
+            return -1
+        return leftmost
+            
