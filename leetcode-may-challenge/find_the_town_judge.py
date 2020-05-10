@@ -10,6 +10,9 @@ You are given trust, an array of pairs trust[i] = [a, b] representing that the p
 
 If the town judge exists and can be identified, return the label of the town judge.  Otherwise, return -1.
 """
+
+from typing import List
+
 class Solution:
     def findJudge(self, N: int, trust: List[List[int]]) -> int:
         if not trust:
