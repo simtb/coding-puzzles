@@ -23,18 +23,18 @@ class Solution:
         column_length: int = len(image[0])
         
         seen: dict = {}
-        queue: List[tuple] = [(sr, sc)]
+        stack: List[tuple] = [(sr, sc)]
         
-        while queue:
-            pixel: tuple = queue.pop()
+        while stack:
+            pixel: tuple = stack.pop()
             if not seen.get(pixel):
                 if 0 <= pixel[0] < row_height and 0 <= pixel[1] < column_length:
                     if image[pixel[0]][pixel[1]] == starting_colour:
                         image[pixel[0]][pixel[1]]: int = newColor
                         seen[pixel]: bool = True
-                        queue.insert(0, (pixel[0] + 1, pixel[1]))
-                        queue.insert(0, (pixel[0] - 1, pixel[1]))
-                        queue.insert(0, (pixel[0], pixel[1] + 1))
-                        queue.insert(0, (pixel[0], pixel[1] - 1))
+                        stack.append((pixel[0] + 1, pixel[1]))
+                        stack.append((pixel[0] - 1, pixel[1]))
+                        stack.append((pixel[0], pixel[1] + 1))
+                        stack.append((pixel[0], pixel[1] - 1))
         
         return image
