@@ -15,31 +15,19 @@ Note: A leaf is a node with no children.
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+
 class Solution:
-    tmp: List[int] = None
-        
-    def preOrder(self, root: TreeNode, current: str) -> None:
-        if root:
-            if self.isLeaf(root):
-                current += str(root.val)
-                self.tmp.append(int(current))
-            else:
-                current += str(root.val)
-                self.preOrder(root.left, current)
-                self.preOrder(root.right, current)
-                
-                
-    def isLeaf(self, root: TreeNode) -> bool:
-        return not root.left and not root.right
-    
-    
     def sumNumbers(self, root: TreeNode) -> int:
-        if not root:
+        return self._helper(root, 0)
+    
+    def _helper(self, root: TreeNode, current_sum: int) -> int:
+        if (not root):
             return 0
         
-        if self.tmp is None:
-            self.tmp: List[int] = []
+        new_sum: int = (current_sum * 10) + root.val
+            
+        if (not root.left and not root.right):
+            return new_sum
         
-        self.preOrder(root, "")
-        return sum(self.tmp)
-        
+        return self._helper(root.left, new_sum) + self._helper(root.right, new_sum)
