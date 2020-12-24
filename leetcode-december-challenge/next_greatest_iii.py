@@ -9,8 +9,6 @@ class Solution:
         return a[::-1]
     
     def nextGreaterElement(self, n: int) -> int:
-        if n >= (2147483647 + 1) // 2:
-            return -1
         digits: List[int] = self.getDigits(n)
         digits_sorted: List[int] = sorted(digits)[::-1]
             
@@ -23,7 +21,6 @@ class Solution:
             current: int = digits[a - 1 - i]
             tmp: List[str] = digits[a - i:]
             tmp.sort()
-            print(digits[:a -i - 1], current, tmp)
             b: int = len(tmp)
             for j in range(b):
                 if tmp[j] > current:
@@ -34,5 +31,9 @@ class Solution:
                     z.append(str(current))
                     for y in tmp:
                         z.append(str(y))
-                    return int(''.join(z))
+                    ans: int = int(''.join(z))
+                    if ans >= (2 ** 31 - 1):
+                        return -1
+                    return ans
                     
+        
