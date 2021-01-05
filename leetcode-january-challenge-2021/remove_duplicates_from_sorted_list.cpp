@@ -17,33 +17,36 @@ public:
         
         ListNode* dummyHead = new ListNode(0);
         ListNode* tmp = dummyHead;
-        int current_value = head -> val;
+        ListNode* previous_node = head;
         int count = 1;
         ListNode* current_node = head -> next;
         
         while (current_node){
-            if (current_value == current_node -> val){
+            if (previous_node -> val == current_node -> val){
                 count++;
             }
             
             else{
                 if (count == 1){
-                    tmp -> next = new ListNode(current_value);
+                    previous_node -> next = NULL;
+                    tmp -> next = previous_node;
                     tmp = tmp -> next;
-                    current_value = current_node -> val;
+                    previous_node = current_node;
                 }
                 
                 else{
                     count = 1;
-                    current_value = current_node -> val;
+                    previous_node = current_node;
                 }
             }
+            
             current_node = current_node -> next;
         }
         
         if (count == 1){
-            tmp -> next = new ListNode(current_value);
+            tmp -> next = previous_node;
         }
+        
         return dummyHead -> next;
     }
 };
